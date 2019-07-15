@@ -1,0 +1,7 @@
+{
+    "require": {
+    },
+    "require-dev": {
+        "apigen/apigen": "^4.1"
+    }
+}
