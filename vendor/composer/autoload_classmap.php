@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'EmailSender' => $baseDir . '/src/email/EmailSender.php',
     'Kdyby\\Events\\Exception' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\InvalidArgumentException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
     'Kdyby\\Events\\InvalidListenerException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',

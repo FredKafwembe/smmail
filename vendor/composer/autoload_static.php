@@ -126,10 +126,6 @@ class ComposerStaticInita30f2fd91a1598b2152851765674a215
         ),
     );
 
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/../..' . '/src',
-    );
-
     public static $prefixesPsr0 = array (
         'T' => 
         array (
@@ -177,6 +173,7 @@ class ComposerStaticInita30f2fd91a1598b2152851765674a215
     );
 
     public static $classMap = array (
+        'EmailSender' => __DIR__ . '/../..' . '/src/email/EmailSender.php',
         'Kdyby\\Events\\Exception' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
         'Kdyby\\Events\\InvalidArgumentException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
         'Kdyby\\Events\\InvalidListenerException' => __DIR__ . '/..' . '/kdyby/events/src/Kdyby/Events/exceptions.php',
@@ -984,7 +981,6 @@ class ComposerStaticInita30f2fd91a1598b2152851765674a215
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInita30f2fd91a1598b2152851765674a215::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita30f2fd91a1598b2152851765674a215::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInita30f2fd91a1598b2152851765674a215::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInita30f2fd91a1598b2152851765674a215::$prefixesPsr0;
             $loader->classMap = ComposerStaticInita30f2fd91a1598b2152851765674a215::$classMap;
 
