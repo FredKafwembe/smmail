@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by Fred kafwembe
- * File: EmailSender.php
- * Class: EmailSender
- */
-require __DIR__ . "\\..\\..\\vendor\\autoload.php"; // If you're using Composer (recommended)
-require_once __DIR__ . "\\..\\common\\config.php";
 
-/**Reveals the functionallity needed to send emails.
- */
+/** Reveals the functionallity needed to send emails. */
 class EmailSender {
     private $_sendgrid;                 //sendgrid api object
     private $_receiverEmailList;        //a list of all the email addresses that will receive the email
@@ -23,16 +15,16 @@ class EmailSender {
         $this->_emailSubject = "";
     }
 
-    /**Adds an email to the list of reciving emails.
+    /** Adds an email to the list of receiving emails.
      * 
-     * Arguments
-     * email - A string for the email to be added to the reciver list
+     * @param string $email The email that is going to be added to the receiver list.
+     * @param string $receiverName The name of the receiver.
      * 
-     * Returns true if email and email is successfully added to the recivers list.
+     * @throws InvalidArgumentException if the given string is not formated as an email.
      * 
-     * Throws an InvalidArgumentException if the given string is not formated as an email.
+     * @return boolean Indicates if the email was added successfully.
      */
-    public function addReciverEmail($email, $receiverName = "") {
+    public function addReceiverEmail($email, $receiverName = "") {
         if($this->_validateEmail($email)) {
             $this->_receiverEmailList[] = 
                 ($receiverName == "" ? array("email" => $email) : array("email" => $email, "name" => $receiverName));
@@ -42,14 +34,14 @@ class EmailSender {
         return true;
     }
 
-    /**Sets the senders email address.
+    /** Sets the senders email address.
      * 
-     * Arguments
-     * email - a string to be used as the senders email
+     * @param string $email The senders email.
+     * @param string $senderName The name of the sender.
      * 
-     * Returns true if email address set successfully.
+     * @throws InvalidArgumenException if the given string is not formatted as an email.
      * 
-     * Throws an InvalidArgumenException if the given string is not formatted as an email.
+     * @return boolean Indicates if the senders email address was set successfully.
      */
     public function setSenderEmail($email, $senderName) {
         if($this->_validateEmail($email)) {
@@ -61,33 +53,30 @@ class EmailSender {
         return true;
     }
 
-    /**Sets the email subject
+    /** Sets the email subject
      * 
-     * Arguments
-     * subject - A string to be used as the email subject
+     * @param string $subject The subject of the email.
      */
     public function setEmailSubject($subject) {
         $this->_emailSubject = $subject;
     }
 
-    /**Set the content of the email
+    /** Set the content of the email
      * 
-     * Arguments
-     * content - A string to be used as the content of the email 
-     *      can be plain plain text or HTML.
-     * isHtml - A boolean used to determine if the content is html 
-     *      or plain text. Default value is false.
+     * @param string $content The content of the email can be plain plain text or HTML.
+     * @param boolean $isHtml Determines if the content is html or plain text.
      */
     public function setEmailContent($content, $isHtml = false) {
         $this->_emailContent = $content;
         $this->_isHtml = $isHtml;
     }
 
-    /**Sends an email to all the email addresses added to the email reciver list.
+    /** Sends an email to all the email addresses added to the email reciver list.
      * 
-     * Returns true if emails sent successfully.
+     * @throws Exception If they are no emails on the reciving email list.
+     * @throws Exception If fails to send an email.
      * 
-     * Throws an Exception if they are no emails on the reciving email list.
+     * @return boolean Indicates if the emails were sent successfully.
      */
     public function sendEmail() {
         if(isset($this->_receiverEmailList) && count($this->_receiverEmailList) != 0) {
@@ -106,7 +95,7 @@ class EmailSender {
                     print_r($response->headers());
                     print $response->body() . "\n";
                 } catch (Exception $e) {
-                    echo 'Caught exception: '. $e->getMessage() ."\n";
+                    throw new Exception("Failed to send email: " . $e->getMessage());
                 }
             }
         } else {
@@ -115,29 +104,11 @@ class EmailSender {
         return true;
     }
 
-    /**Validates if a given string is formatted as an email
+    /** Validates if a given string is formatted as an email
+     * 
+     * @param string $email The string to be validated as an email.
      */
     private function _validateEmail($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 }
-
-/*
-$email = new \SendGrid\Mail\Mail();
-$email->setFrom("test@example.com", "Example User");
-$email->setSubject("Sending with SendGrid is Fun");
-$email->addTo("test@example.com", "Example User");
-$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-$email->addContent(
-    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-);
-$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-try {
-    $response = $sendgrid->send($email);
-    print $response->statusCode() . "\n";
-    print_r($response->headers());
-    print $response->body() . "\n";
-} catch (Exception $e) {
-    echo 'Caught exception: '. $e->getMessage() ."\n";
-}
-*/
