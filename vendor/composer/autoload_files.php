@@ -16,4 +16,5 @@ return array(
     'f0e9d233388e461ee3c460665eb265f0' => $vendorDir . '/herrera-io/phar-update/src/lib/constants.php',
     '9d08842a2aa0dc42ee93aa591835610d' => $vendorDir . '/kdyby/events/src/Doctrine/compatibility.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+    '3f8bdd3b35094c73a26f0106e3c0f8b2' => $vendorDir . '/sendgrid/sendgrid/lib/SendGrid.php',
 );
