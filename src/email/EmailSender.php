@@ -1,6 +1,10 @@
 <?php
 
-/** Reveals the functionallity needed to send emails. */
+/**
+ * Reveals the functionallity needed to send emails.
+ * 
+ * @author Fred Kafwembe
+ */
 class EmailSender {
     private $_sendgrid;                 //sendgrid api object
     private $_receiverEmailList;        //a list of all the email addresses that will receive the email
@@ -15,7 +19,8 @@ class EmailSender {
         $this->_emailSubject = "";
     }
 
-    /** Adds an email to the list of receiving emails.
+    /**
+     * Adds an email to the list of receiving emails.
      * 
      * @param string $email The email that is going to be added to the receiver list.
      * @param string $receiverName The name of the receiver.
@@ -34,7 +39,21 @@ class EmailSender {
         return true;
     }
 
-    /** Sets the senders email address.
+    /**
+     * 
+     */
+    public function removeReceiverEmail($email) {
+        for($i = 0; $i < count($this->_receiverEmailList); $i++) {
+            if($this->_receiverEmailList[$i]["email"] == $email) {
+                unset($this->_receiverEmailList[$i]);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Sets the senders email address.
      * 
      * @param string $email The senders email.
      * @param string $senderName The name of the sender.
@@ -53,7 +72,8 @@ class EmailSender {
         return true;
     }
 
-    /** Sets the email subject
+    /**
+     * Sets the email subject
      * 
      * @param string $subject The subject of the email.
      */
@@ -61,7 +81,8 @@ class EmailSender {
         $this->_emailSubject = $subject;
     }
 
-    /** Set the content of the email
+    /**
+     * Set the content of the email
      * 
      * @param string $content The content of the email can be plain plain text or HTML.
      * @param boolean $isHtml Determines if the content is html or plain text.
@@ -71,7 +92,8 @@ class EmailSender {
         $this->_isHtml = $isHtml;
     }
 
-    /** Sends an email to all the email addresses added to the email reciver list.
+    /**
+     * Sends an email to all the email addresses added to the email reciver list.
      * 
      * @throws Exception If they are no emails on the reciving email list.
      * @throws Exception If fails to send an email.
@@ -104,7 +126,8 @@ class EmailSender {
         return true;
     }
 
-    /** Validates if a given string is formatted as an email
+    /**
+     * Validates if a given string is formatted as an email
      * 
      * @param string $email The string to be validated as an email.
      */
