@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Reveals the functionality needed to send Sms's
+ * 
+ * @author Fred kafwembe
+ */
 class SmsSender {
     private $_nexmoClient;
     private $_phoneNumberList;
@@ -11,6 +16,17 @@ class SmsSender {
         $this->_nexmoClient = new \Nexmo\Client($basic);
     }
 
+    /**
+     * Adds a phone number to the receivers list
+     * 
+     * @param string $phoneNumber The phone number that is going to be added to the receivers list
+     * @param string $regionCode The region code for the phone number that is going to be added to the list
+     * 
+     * @throws InvalidArgumentException If the provided string does not represent a phone number
+     * @throws InvalidArgumentException If the provided string is not a valid phone number
+     * 
+     * @return boolean Indicates if the phone number was added to the receivers list
+     */
     public function addReceiverPhoneNumber($phoneNumber, $regionCode = NULL) {
         $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
         try {
@@ -37,6 +53,7 @@ class SmsSender {
 
     public function sendSms() {
         foreach($this->_phoneNumberList as $phoneNumber) {
+            /*
             try {
                 $message = $this->_nexmoClient->message()->send([
                     'to' => $phoneNumber,
@@ -54,6 +71,7 @@ class SmsSender {
             } catch (Exception $e) {
                 echo "The message was not sent. Error: " . $e->getMessage() . "\n";
             }
+            */
         }
     }
 }
