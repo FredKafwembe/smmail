@@ -9,6 +9,8 @@ require_once __DIR__ . "\\..\\vendor\\autoload.php";
 //$smsSender->addReceiverPhoneNumber("+260 97 1503354");
 //$smsSender->sendSms();
 
+$dbConn = DBConnector::instance();
+
 $emailSender = new EmailSender();
 //print(__DIR__ . "\n");
 //$emailSender->setEmailContent("This is a test email");

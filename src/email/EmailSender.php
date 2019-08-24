@@ -17,6 +17,7 @@ class EmailSender {
     function __construct() {
         $this->_sendgrid = new \SendGrid(SENDGRID_API_KEY);
         $this->_emailSubject = "";
+        $this->_receiverEmailList = array();
     }
 
     /**
@@ -27,40 +28,80 @@ class EmailSender {
      * 
      * @throws InvalidArgumentException if the given string is not formated as an email.
      * 
-     * @return boolean Indicates if the email was added successfully.
+     * @return bool True if the email was added successfully, false 
+     * if the email is already on the list.
      */
     public function addReceiverEmail($email, $receiverName = "") {
-        if($this->_validateEmail($email)) {
-            $this->_receiverEmailList[] = 
-                ($receiverName == "" ? array("email" => $email) : array("email" => $email, "name" => $receiverName));
-        } else {
+        //throw an exception if the email is invalid
+        if(!$this->_validateEmail($email)) {
             throw new InvalidArgumentException($email . " is not a valid email.");
         }
-        return true;
-    }
 
-    /**
-     * 
-     */
-    public function removeReceiverEmail($email) {
-        for($i = 0; $i < count($this->_receiverEmailList); $i++) {
-            if($this->_receiverEmailList[$i]["email"] == $email) {
-                unset($this->_receiverEmailList[$i]);
-                return true;
-            }
+        if($this->onReceiverList($email) == -1) {
+            //add email to the receiver list with name or without name
+            $this->_receiverEmailList[] = 
+                ($receiverName == "" ? array("email" => $email) : 
+                array("email" => $email, "name" => $receiverName));
+            return true;
         }
         return false;
     }
 
     /**
+     * Remove a specific email address from the receiver list
+     * 
+     * @param String $email The email to remove from the receiver list
+     * 
+     * @return Boolean True if the email was successfully removed, false otherwise
+     */
+    public function removeReceiverEmail($email) {
+        $index = $this->onReceiverList($email);
+        if($index != -1) {
+            unset($this->_receiverEmailList[$index]);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Clear all the emails on the receiver list
+     */
+    public function removeAllReceiverEmails() {
+        $this->_receiverEmailList = array();
+    }
+
+    /**
+     * Gets the number of emails currently on the receiver email list
+     * 
+     * @return Integer the number of email on the receivers list
+     */
+    public function getReceiverEmailCount() {
+        return count($this->_receiverEmailList);
+    }
+
+    /**
+     * @param String $receiverEmail The email to be searched for
+     * 
+     * @return Integer Index of the email if the email is on the receiver list, -1 otherwise
+     */
+    public function onReceiverList($receiverEmail) {
+        for($i = 0; $i < count($this->_receiverEmailList); $i++) {
+            if($this->_receiverEmailList[$i]["email"] == $receiverEmail) {
+                return $i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Sets the senders email address.
      * 
-     * @param string $email The senders email.
-     * @param string $senderName The name of the sender.
+     * @param String $email The senders email.
+     * @param String $senderName The name of the sender.
      * 
      * @throws InvalidArgumenException if the given string is not formatted as an email.
      * 
-     * @return boolean Indicates if the senders email address was set successfully.
+     * @return Boolean Indicates if the senders email address was set successfully.
      */
     public function setSenderEmail($email, $senderName) {
         if($this->_validateEmail($email)) {
@@ -75,21 +116,43 @@ class EmailSender {
     /**
      * Sets the email subject
      * 
-     * @param string $subject The subject of the email.
+     * @param String $subject The subject of the email.
      */
     public function setEmailSubject($subject) {
         $this->_emailSubject = $subject;
     }
 
     /**
+     * @return String The subject of the email
+     */
+    public function getEmailSubject() {
+        return $this->_emailSubject;
+    } 
+
+    /**
      * Set the content of the email
      * 
-     * @param string $content The content of the email can be plain plain text or HTML.
-     * @param boolean $isHtml Determines if the content is html or plain text.
+     * @param String $content The content of the email can be plain plain text or HTML.
+     * @param Boolean $isHtml Determines if the content is html or plain text.
      */
     public function setEmailContent($content, $isHtml = false) {
         $this->_emailContent = $content;
         $this->_isHtml = $isHtml;
+    }
+
+    /**
+     * @return Bool True if the content of the email is html content, 
+     * false if content is just plain text
+     */
+    public function getIsHtml() {
+        return $this->_isHtml;
+    }
+
+    /**
+     * @return String The content of the email
+     */
+    public function getEmailContent() {
+        return $this->_emailContent;
     }
 
     /**
@@ -98,7 +161,7 @@ class EmailSender {
      * @throws Exception If they are no emails on the reciving email list.
      * @throws Exception If fails to send an email.
      * 
-     * @return boolean Indicates if the emails were sent successfully.
+     * @return Boolean Indicates if the emails were sent successfully.
      */
     public function sendEmail() {
         if(isset($this->_receiverEmailList) && count($this->_receiverEmailList) != 0) {
@@ -129,7 +192,9 @@ class EmailSender {
     /**
      * Validates if a given string is formatted as an email
      * 
-     * @param string $email The string to be validated as an email.
+     * @param String $email The string to be validated as an email.
+     * 
+     * @return Bool True if the email given has valid email format, false otherwise
      */
     private function _validateEmail($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL);

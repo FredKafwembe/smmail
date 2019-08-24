@@ -5,11 +5,14 @@ DBConnector
  ✔ Same pdo connection returned
 
 EmailSender
- ✔ Can add valid reciver email
- ✔ Cannot add invalid reciver email
+ ✔ Can add valid receiver email
+ ✔ Cannot add invalid receiver email
+ ✔ Cannot add same receiver email
+ ✔ Can remove specific email
+ ✔ Can remove all receiver emails
  ✔ Can add valid sender email
  ✔ Cannot add invalid sender email
 
-Time: 178 ms, Memory: 4.00 MB
+Time: 177 ms, Memory: 4.00 MB
 
-OK (6 tests, 6 assertions)
+OK (9 tests, 9 assertions)
