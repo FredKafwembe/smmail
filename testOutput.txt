@@ -1,7 +1,15 @@
 PHPUnit 7.5.14 by Sebastian Bergmann and contributors.
 
-....                                                                4 / 4 (100%)
+DBConnector
+ ✔ Same singleton instance returned
+ ✔ Same pdo connection returned
 
-Time: 240 ms, Memory: 4.00 MB
+EmailSender
+ ✔ Can add valid reciver email
+ ✔ Cannot add invalid reciver email
+ ✔ Can add valid sender email
+ ✔ Cannot add invalid sender email
 
-OK (4 tests, 4 assertions)
+Time: 178 ms, Memory: 4.00 MB
+
+OK (6 tests, 6 assertions)

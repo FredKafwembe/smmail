@@ -1,3 +1,3 @@
 echo off
 
-.\vendor\bin\phpunit --bootstrap .\vendor\autoload.php tests > .\testOutput.txt
+.\vendor\bin\phpunit --bootstrap .\vendor\autoload.php --testdox tests > .\testOutput.txt
