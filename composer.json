@@ -1,5 +1,5 @@
 {
-	"name": "tgwob/Smmail",
+	"name": "tgwob/smmail",
     "require": {
         "sendgrid/sendgrid": "~7",
         "nexmo/client": "^1.8",
