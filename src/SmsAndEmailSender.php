@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "\\..\\vendor\\autoload.php";
+//require_once __DIR__ . "\\common\\Config.php";
 
 //$smsSender = new SmsSender();
 //$smsSender->setSendersName("Fred");

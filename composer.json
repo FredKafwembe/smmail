@@ -10,7 +10,6 @@
         "phpunit/phpunit": "^7.5"
     },
 	"autoload": {
-		"classmap": ["src/"],
-		"files": ["src/common/config.php"]
+		"classmap": ["src/"]
     }
 }
