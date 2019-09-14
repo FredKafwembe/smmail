@@ -23,12 +23,12 @@ class EmailSender {
     /**
      * Adds an email to the list of receiving emails.
      * 
-     * @param string $email The email that is going to be added to the receiver list.
-     * @param string $receiverName The name of the receiver.
+     * @param String $email The email that is going to be added to the receiver list.
+     * @param String $receiverName The name of the receiver.
      * 
      * @throws InvalidArgumentException if the given string is not formated as an email.
      * 
-     * @return bool True if the email was added successfully, false 
+     * @return Bool True if the email was added successfully, false 
      * if the email is already on the list.
      */
     public function addReceiverEmail($email, $receiverName = "") {

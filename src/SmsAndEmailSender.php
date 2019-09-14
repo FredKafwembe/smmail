@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "\\..\\vendor\\autoload.php";
-//require_once __DIR__ . "\\common\\Config.php";
+require_once __DIR__ . "\\common\\Config.php";
 
 //$smsSender = new SmsSender();
 //$smsSender->setSendersName("Fred");
@@ -23,6 +23,8 @@ $emailSender->addReceiverEmail("fredjkafwemb@gmail.com", "Fred");
 //$emailSender->sendEmail();
 
 //print(("revolve" == "revolve") ? "true" : "false");
+
+$group = new Group("New Group", true);
 
 class SmsAndEmailSender {
 

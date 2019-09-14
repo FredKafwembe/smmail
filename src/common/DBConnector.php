@@ -9,10 +9,10 @@ final class DBConnector {
 
     private $conn;
     private $dbCreateScript = array(
-        "CREATE SCHEMA IF NOT EXISTS `Smmail` DEFAULT CHARACTER SET utf8 ;
-        USE `Smmail` ;",
+        "CREATE SCHEMA IF NOT EXISTS `" . DATABASE_NAME . "` DEFAULT CHARACTER SET utf8 ;
+        USE `" . DATABASE_NAME . "` ;",
         
-        "CREATE TABLE IF NOT EXISTS `Smmail`.`SmmailContacts` (
+        "CREATE TABLE IF NOT EXISTS `" . DATABASE_NAME . "`.`SmmailContacts` (
         `ContactId` INT(21) NOT NULL AUTO_INCREMENT,
         `Name` VARCHAR(50) NULL,
         `Email` VARCHAR(120) NULL,
@@ -20,13 +20,13 @@ final class DBConnector {
         PRIMARY KEY (`ContactId`))
         ENGINE = InnoDB;",
         
-        "CREATE TABLE IF NOT EXISTS `Smmail`.`SmmailGroups` (
+        "CREATE TABLE IF NOT EXISTS `" . DATABASE_NAME . "`.`SmmailGroups` (
         `GroupId` INT(21) NOT NULL AUTO_INCREMENT,
         `Name` VARCHAR(120) NOT NULL,
         PRIMARY KEY (`GroupId`))
         ENGINE = InnoDB;",
         
-        "CREATE TABLE IF NOT EXISTS `Smmail`.`SmmailMessages` (
+        "CREATE TABLE IF NOT EXISTS `" . DATABASE_NAME . "`.`SmmailMessages` (
         `MessageId` INT(21) NOT NULL AUTO_INCREMENT,
         `GroupIdFk` INT(21) NOT NULL,
         `Message` TEXT NOT NULL,
@@ -35,12 +35,12 @@ final class DBConnector {
         INDEX `MessageGroupId_idx` (`GroupIdFk` ASC),
         CONSTRAINT `MessageGroupId`
             FOREIGN KEY (`GroupIdFk`)
-            REFERENCES `Smmail`.`SmmailGroups` (`GroupId`)
+            REFERENCES `" . DATABASE_NAME . "`.`SmmailGroups` (`GroupId`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION)
         ENGINE = InnoDB;",
         
-        "CREATE TABLE IF NOT EXISTS `Smmail`.`SmmailGroupContact` (
+        "CREATE TABLE IF NOT EXISTS `" . DATABASE_NAME . "`.`SmmailGroupContact` (
         `ContactIdFk` INT(21) NOT NULL,
         `GroupIdFk` INT(21) NOT NULL,
         `IsEmailGroup` TINYINT(1) NOT NULL,
@@ -49,17 +49,17 @@ final class DBConnector {
         INDEX `GCGroupId_idx` (`GroupIdFk` ASC),
         CONSTRAINT `GCContactId`
             FOREIGN KEY (`ContactIdFk`)
-            REFERENCES `Smmail`.`SmmailContacts` (`ContactId`)
+            REFERENCES `" . DATABASE_NAME . "`.`SmmailContacts` (`ContactId`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
         CONSTRAINT `GCGroupId`
             FOREIGN KEY (`GroupIdFk`)
-            REFERENCES `Smmail`.`SmmailGroups` (`GroupId`)
+            REFERENCES `" . DATABASE_NAME . "`.`SmmailGroups` (`GroupId`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION)
         ENGINE = InnoDB;",
         
-        "CREATE TABLE IF NOT EXISTS `Smmail`.`SmmailMessageReceiveDetails` (
+        "CREATE TABLE IF NOT EXISTS `" . DATABASE_NAME . "`.`SmmailMessageReceiveDetails` (
         `ContactIdFk` INT(21) NOT NULL,
         `MessageIdFk` INT(21) NOT NULL,
         `IsSent` TINYINT(1) NOT NULL,
@@ -68,12 +68,12 @@ final class DBConnector {
         INDEX `MRDMessageId_idx` (`MessageIdFk` ASC),
         CONSTRAINT `MRDContactId`
             FOREIGN KEY (`ContactIdFk`)
-            REFERENCES `Smmail`.`SmmailContacts` (`ContactId`)
+            REFERENCES `" . DATABASE_NAME . "`.`SmmailContacts` (`ContactId`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
         CONSTRAINT `MRDMessageId`
             FOREIGN KEY (`MessageIdFk`)
-            REFERENCES `Smmail`.`SmmailMessages` (`MessageId`)
+            REFERENCES `" . DATABASE_NAME . "`.`SmmailMessages` (`MessageId`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION)
         ENGINE = InnoDB;"
