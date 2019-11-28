@@ -3,7 +3,7 @@
 /**
  * 
  */
-class Message extends Controller {
+class Message extends ControllerSm {
 	private $_id;
 	private $_groupId;
 	private $_message;

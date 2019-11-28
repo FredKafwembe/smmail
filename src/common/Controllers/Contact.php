@@ -1,6 +1,6 @@
 <?php
 
-class Contact extends Controller {
+class Contact extends ControllerSm {
 	private $_id;
 	private $_name;
 	private $_email;

@@ -2,7 +2,7 @@
 /**
  * Base abstract class for all controllers
  */
-abstract class Controller {
+abstract class ControllerSm {
 	protected $_model;
 
 	function __construct() {

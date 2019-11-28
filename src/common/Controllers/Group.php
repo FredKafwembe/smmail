@@ -1,6 +1,6 @@
 <?php
 
-class Group extends Controller {
+class Group extends ControllerSm {
 	private $_groupId = -1;
 	private $_groupName;
 	private $_emailGroup;
