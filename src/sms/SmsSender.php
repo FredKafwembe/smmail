@@ -51,7 +51,6 @@ class SmsSender {
 
     public function sendSms() {
         foreach($this->_phoneNumberList as $phoneNumber) {
-            /*
             try {
                 $message = $this->_nexmoClient->message()->send([
                     'to' => $phoneNumber,
@@ -69,7 +68,6 @@ class SmsSender {
             } catch (Exception $e) {
                 echo "The message was not sent. Error: " . $e->getMessage() . "\n";
             }
-            */
         }
     }
 }
