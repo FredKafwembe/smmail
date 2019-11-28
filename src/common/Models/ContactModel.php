@@ -1,6 +1,6 @@
 <?php
 
-class ContactModel extends Model {
+class ContactModel extends ModelSm {
 	function __construct() {
 		parent::__construct();
 	}

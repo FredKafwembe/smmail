@@ -2,7 +2,7 @@
 /**
  * Base abstract class for all models
  */
-abstract class Model {
+abstract class ModelSm {
 	protected $_db;
 
 	function __construct() {

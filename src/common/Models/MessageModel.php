@@ -1,6 +1,6 @@
 <?php
 
-class MessageModel extends Model {
+class MessageModel extends ModelSm {
 	function __construct() {
 		parent::__construct();
 	}

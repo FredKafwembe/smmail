@@ -1,6 +1,6 @@
 <?php
 
-class GroupModel extends Model {
+class GroupModel extends ModelSm {
 	function __construct() {
 		parent::__construct();
 	}
