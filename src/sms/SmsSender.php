@@ -2,8 +2,6 @@
 
 /**
  * Reveals the functionality needed to send Sms's
- * 
- * @author Fred kafwembe
  */
 class SmsSender {
     private $_nexmoClient;

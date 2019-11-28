@@ -3,7 +3,6 @@
 /**
  * Reveals the functionallity needed to send emails.
  * 
- * @author Fred Kafwembe
  */
 class EmailSender {
     private $_sendgrid;                 //sendgrid api object
@@ -127,7 +126,7 @@ class EmailSender {
      */
     public function getEmailSubject() {
         return $this->_emailSubject;
-    } 
+    }
 
     /**
      * Set the content of the email

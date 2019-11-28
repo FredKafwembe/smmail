@@ -1,9 +1,6 @@
 <?php
-/**
- * @author Fred Kafwembe
- */
+
 use PHPUnit\Framework\TestCase;
-use PharIo\Manifest\Email;
 
 /**
  * Class used to carry out unit tests on the functionality of
